@@ -5,22 +5,18 @@ function App() {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = import.meta.env.VITE_TOKEN;
 
-  let email="";
-  let password="";
-  let full_name="";
+  let name="";
+  let message="";
   const [result, setResult] = useState("")
  
 
-  const onChangeEmail = (event) => {
-    email = event.target.value;
+  const onChangeMessage = (event) => {
+    message = event.target.value;
   }
 
-  const onChangePass = (event) => {
-    password = event.target.value;
-  }
 
-  const onChangeFullName = (event) => {
-    full_name = event.target.value;
+  const onChangeName = (event) => {
+    name = event.target.value;
   }
 
   const saveUser = async ()=>{
@@ -28,14 +24,13 @@ function App() {
     event.preventDefault()
 
     let info = {
-      email,
-      password,
-      full_name
+      name,
+      message
     } 
 
  
 
-     const url = `${baseUrl}user_table`;
+     const url = `${baseUrl}contactform`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -63,19 +58,16 @@ function App() {
 
         <form onSubmit={saveUser}>
           <div className="mb-3">
-            <label className="form-label">Email address</label>
-            <input type='email' className="form-control" onChange={onChangeEmail} />
+            <label className="form-label">Name</label>
+            <input type='text' className="form-control" onChange={onChangeName} />
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input type='password' className="form-control" onChange={onChangePass} />
+            <label className="form-label">Message</label>
+            <textarea type='text' className="form-control" onChange={onChangeMessage} />
           </div>
 
-          <div className="mb-3">
-            <label className="form-label">Full Name</label>
-            <input type='text' className="form-control" onChange={onChangeFullName} />
-          </div>
+         
 
           <button className='btn btn-success'>Save</button>
         </form>
