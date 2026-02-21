@@ -1,81 +1,8 @@
-import { useState} from 'react'
-import './App.css'
+import React from "react";
+import { ContactForm } from "./components/ContactForm";
+import "./App.css";
 
-function App() {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
-  const token = import.meta.env.VITE_TOKEN;
-
-  let name="";
-  let message="";
-  const [result, setResult] = useState("")
- 
-
-  const onChangeMessage = (event) => {
-    message = event.target.value;
-  }
-
-
-  const onChangeName = (event) => {
-    name = event.target.value;
-  }
-
-  const saveUser = async ()=>{
-
-    event.preventDefault()
-
-    let info = {
-      name,
-      message
-    } 
-
- 
-
-     const url = `${baseUrl}contactform`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': token
-      },
-      body: JSON.stringify(info)
-    });
-
-  if (response.ok) {
-    setResult("User created successfully!")
-    
-  } else {
-    setResult("Error creating user.")
-
-
-  }
-
-  }
-   return (
-    <>
-
-      <main className="container mt-5">
-        <h1>Create User</h1>
-
-        <form onSubmit={saveUser}>
-          <div className="mb-3">
-            <label className="form-label">Name</label>
-            <input type='text' className="form-control" onChange={onChangeName} />
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label">Message</label>
-            <textarea type='text' className="form-control" onChange={onChangeMessage} />
-          </div>
-
-         
-
-          <button className='btn btn-success'>Save</button>
-        </form>
-
-        <p>{result}</p>
-      </main>
-    </>
-  )
-}
-
-export default App
+export const App = () => {
+  return <ContactForm />;
+};
+export default App;
